@@ -2,8 +2,10 @@ version: '3'
 
 services:
   elasticsearch:
-    image: ind3x/rpi-elasticsearch:latest
-    command: elasticsearch -Des.network.host=".0.0.0"
+    build: elasticsearch/
+    command: elasticsearch -Des.network.host="0.0.0.0"
+    environment:
+      - ES_HEAP_SIZE=384m
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -13,6 +15,8 @@ services:
   logstash:
     build: logstash/
     command: logstash -f /etc/logstash/conf.d/logstash.conf
+    environment:
+      - LS_HEAP_SIZE=256m
     volumes:
       - ./logstash/config:/etc/logstash/conf.d
     ports:
@@ -31,7 +35,7 @@ services:
     networks:
       - elk
     depends_on:
-      - elasticsearch
+      - logstash
 
 networks:
   elk:

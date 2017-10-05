@@ -23,16 +23,10 @@ Uses Docker images which support Raspberry Pi based on the official images:
 
 # Usage
 
-Start the ELK stack using *docker-compose* in your Raspberry Pi:
+Start the ELK stack using *docker-compose* in your Raspberry Pi (detached mode):
 
 ```bash
-$ docker-compose up
-```
-
-You can also choose to run it in background (detached mode):
-
-```bash
-$ docker-compose up -d
+$ docker-compose run --service-ports -d kibana
 ```
 
 Now that the stack is running, you'll want to inject logs in it. The shipped logstash configuration allows you to send content via tcp:
