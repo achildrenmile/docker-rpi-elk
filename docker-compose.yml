@@ -4,6 +4,8 @@ services:
   elasticsearch:
     build: elasticsearch/
     command: elasticsearch -Des.network.host="0.0.0.0"
+    volumes:
+      - /usr/share/elasticsearch/data:/usr/share/elasticsearch/data
     environment:
       - ES_HEAP_SIZE=384m
     ports:
